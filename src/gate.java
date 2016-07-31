@@ -26,9 +26,7 @@ public class gate {
             }
             towire = new String(input.toCharArray(), buffer + 3, input.length() - buffer - 3);
 
-        }
-
-        else {
+        } else {
             for (int num = 0; num < input.length() - 1; num++) {
 
                 if (input.toCharArray()[num] == ' ') {
@@ -108,85 +106,9 @@ public class gate {
         //System.out.println(towire);
     }
 
-    public Integer compute() {
-        Integer iwire1 = Integer.parseInt(this.wire1);
-        Integer iwire2 = Integer.parseInt(this.wire2);
-        Integer output = 0;
-        //System.out.println(this.wire2);
-        //System.out.println(this.operation);
-        switch (this.operation){
-            case 0: output =  iwire1;
-                break;
-            case 1: output =  iwire1 & iwire2;
-                break;
-            case 2: output =  iwire1 | iwire2;
-                break;
-            case 3: output =  ~iwire1;
-                //System.out.println("eheerer");
-                //System.out.println(iwire1);
-                //System.out.println(~iwire1);
-                break;
-            case 4: output =  iwire1 << iwire2;
-                break;
-                //System.out.println(this.operation);
-            case 5: output =  iwire1 >> iwire2;
-                break;
-                //System.out.println(this.operation);
-        }
-
-        //System.out.println(this.wire2);
-
-        return output;
-    }
-
-    public Integer findroot(String unknown, ArrayList<gate> all) {
-        Integer output = 999999999;
-        for (gate command : all) {
-            if ( unknown.contentEquals(command.towire)) {
-                //System.out.println(Integer.parseInt(command.wire1));
-
-                if (!tryParse(command.wire1)) {
-                command.wire1 = findroot(command.wire1, all).toString();}
-                /*
-                else {
-                    if (Integer.parseInt(command.wire1)!= 0) {
-                        System.out.println("_______________");
-                        System.out.println(Integer.parseInt(command.wire1));
-                        System.out.println(command.wire2);
-                        System.out.println(command.towire);
-                    }
-                }*/
-
-
-                if (!tryParse(command.wire2)) {
-                    command.wire2 = findroot(command.wire2, all).toString();
-                }
-
-                /*else {
-                    if (Integer.parseInt(command.wire2)!= 0) {
-                        System.out.println("_______________");
-                        System.out.println(command.wire1);
-                        System.out.println(Integer.parseInt(command.wire2));
-                        System.out.println(command.towire);
-                    }
-                }*/
-
-                //System.out.println(command.compute());
-                output = command.compute();
-                System.out.println("++++++++++++");
-                System.out.println(command.operation);
-                System.out.println(Integer.parseInt(command.wire1));
-                System.out.println(Integer.parseInt(command.wire2));
-                System.out.println(command.towire);
-                System.out.println(output);
-            }
-        }
-
-        return output;
-    }
-
     public static Boolean tryParse(String text) {
-        try {Integer.parseInt(text);
+        try {
+            Integer.parseInt(text);
             return true;
         } catch (NumberFormatException e) {
             //System.out.println(text);
@@ -555,6 +477,90 @@ public class gate {
         System.out.println(main.findroot("a", x));
 
 
+    }
+
+    public Integer compute() {
+        Integer iwire1 = Integer.parseInt(this.wire1);
+        Integer iwire2 = Integer.parseInt(this.wire2);
+        Integer output = 0;
+        //System.out.println(this.wire2);
+        //System.out.println(this.operation);
+        switch (this.operation) {
+            case 0:
+                output = iwire1;
+                break;
+            case 1:
+                output = iwire1 & iwire2;
+                break;
+            case 2:
+                output = iwire1 | iwire2;
+                break;
+            case 3:
+                output = ~iwire1;
+                //System.out.println("eheerer");
+                //System.out.println(iwire1);
+                //System.out.println(~iwire1);
+                break;
+            case 4:
+                output = iwire1 << iwire2;
+                break;
+            //System.out.println(this.operation);
+            case 5:
+                output = iwire1 >> iwire2;
+                break;
+            //System.out.println(this.operation);
+        }
+
+        //System.out.println(this.wire2);
+
+        return output;
+    }
+
+    public Integer findroot(String unknown, ArrayList<gate> all) {
+        Integer output = 999999999;
+        for (gate command : all) {
+            if (unknown.contentEquals(command.towire)) {
+                //System.out.println(Integer.parseInt(command.wire1));
+
+                if (!tryParse(command.wire1)) {
+                    command.wire1 = findroot(command.wire1, all).toString();
+                }
+                /*
+                else {
+                    if (Integer.parseInt(command.wire1)!= 0) {
+                        System.out.println("_______________");
+                        System.out.println(Integer.parseInt(command.wire1));
+                        System.out.println(command.wire2);
+                        System.out.println(command.towire);
+                    }
+                }*/
+
+
+                if (!tryParse(command.wire2)) {
+                    command.wire2 = findroot(command.wire2, all).toString();
+                }
+
+                /*else {
+                    if (Integer.parseInt(command.wire2)!= 0) {
+                        System.out.println("_______________");
+                        System.out.println(command.wire1);
+                        System.out.println(Integer.parseInt(command.wire2));
+                        System.out.println(command.towire);
+                    }
+                }*/
+
+                //System.out.println(command.compute());
+                output = command.compute();
+                System.out.println("++++++++++++");
+                System.out.println(command.operation);
+                System.out.println(Integer.parseInt(command.wire1));
+                System.out.println(Integer.parseInt(command.wire2));
+                System.out.println(command.towire);
+                System.out.println(output);
+            }
+        }
+
+        return output;
     }
 
 }
